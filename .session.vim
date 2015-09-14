@@ -11,11 +11,11 @@ set shortmess=aoO
 badd +1 src/Polygon.js
 badd +1 src/creators/PolygonCreator.js
 badd +12 src/HeatmapLayer.js
-badd +1 src/creators/HeatmapLayerCreator.js
+badd +58 src/creators/HeatmapLayerCreator.js
 badd +1 src/eventLists/PolygonEventList.js
 badd +1 src/eventLists/HeatmapLayerEventList.js
 badd +1 src/Marker.js
-badd +1 src/creators/MarkerCreator.js
+badd +123 src/creators/MarkerCreator.js
 badd +49 lib/index.js
 badd +1 src/index.js
 argglobal
@@ -26,13 +26,27 @@ set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
 1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
 wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
+exe '1resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 1resize ' . ((&columns * 91 + 91) / 182)
-exe 'vert 2resize ' . ((&columns * 90 + 91) / 182)
+exe '2resize ' . ((&lines * 26 + 28) / 56)
+exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
+exe '3resize ' . ((&lines * 26 + 28) / 56)
+exe 'vert 3resize ' . ((&columns * 90 + 91) / 182)
+exe '4resize ' . ((&lines * 26 + 28) / 56)
+exe 'vert 4resize ' . ((&columns * 90 + 91) / 182)
 argglobal
 setlocal fdm=indent
 setlocal fde=0
@@ -42,11 +56,28 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-let s:l = 1 - ((0 * winheight(0) + 26) / 53)
+let s:l = 32 - ((23 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+32
+normal! 03|
+wincmd w
+argglobal
+edit src/HeatmapLayer.js
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+let s:l = 3 - ((2 * winheight(0) + 13) / 26)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+3
 normal! 0
 wincmd w
 argglobal
@@ -59,15 +90,38 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-let s:l = 35 - ((0 * winheight(0) + 26) / 53)
+let s:l = 37 - ((25 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-35
+37
 normal! 0
 wincmd w
+argglobal
+edit src/Marker.js
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+let s:l = 33 - ((23 * winheight(0) + 13) / 26)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+33
+normal! 0
+wincmd w
+exe '1resize ' . ((&lines * 26 + 28) / 56)
 exe 'vert 1resize ' . ((&columns * 91 + 91) / 182)
-exe 'vert 2resize ' . ((&columns * 90 + 91) / 182)
+exe '2resize ' . ((&lines * 26 + 28) / 56)
+exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
+exe '3resize ' . ((&lines * 26 + 28) / 56)
+exe 'vert 3resize ' . ((&columns * 90 + 91) / 182)
+exe '4resize ' . ((&lines * 26 + 28) / 56)
+exe 'vert 4resize ' . ((&columns * 90 + 91) / 182)
 tabedit src/index.js
 set splitbelow splitright
 set nosplitbelow

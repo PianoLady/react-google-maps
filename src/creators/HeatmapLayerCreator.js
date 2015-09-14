@@ -19,6 +19,7 @@ export const heatmapLayerControlledPropTypes = {
   editable: PropTypes.bool,
   options: PropTypes.object,
   data: PropTypes.any,
+  gradient: PropTypes.any,
   visible: PropTypes.bool,
 };
 
@@ -55,6 +56,7 @@ export default class HeatmapLayerCreator extends Component {
       "draggable",
       "editable",
       "data",
+      "gradient",
       "visible",
     ]));
 
