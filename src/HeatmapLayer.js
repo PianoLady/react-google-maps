@@ -8,7 +8,7 @@ import {
   heatmapLayerDefaultPropTypes,
   heatmapLayerControlledPropTypes,
   heatmapLayerEventPropTypes,
-} from "./creators/heatmapLayerCreator";
+} from "./creators/HeatmapLayerCreator";
 
 export default class HeatmapLayer extends Component {
   static propTypes = {

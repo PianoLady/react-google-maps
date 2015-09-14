@@ -11,7 +11,7 @@ set shortmess=aoO
 badd +1 src/Polygon.js
 badd +1 src/creators/PolygonCreator.js
 badd +29 src/HeatmapLayer.js
-badd +7 src/creators/HeatmapLayerCreator.js
+badd +1 src/creators/HeatmapLayerCreator.js
 badd +1 src/eventLists/PolygonEventList.js
 badd +1 src/eventLists/HeatmapLayerEventList.js
 badd +1 src/Marker.js
@@ -21,7 +21,7 @@ badd +0 src/index.js
 argglobal
 silent! argdel *
 set stal=2
-edit src/creators/HeatmapLayerCreator.js
+edit src/HeatmapLayer.js
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -42,12 +42,12 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-let s:l = 72 - ((52 * winheight(0) + 27) / 54)
+let s:l = 11 - ((10 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-72
-normal! 0
+11
+normal! 020|
 wincmd w
 argglobal
 edit src/creators/MarkerCreator.js
@@ -59,7 +59,7 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-let s:l = 35 - ((0 * winheight(0) + 27) / 54)
+let s:l = 35 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -83,13 +83,13 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-let s:l = 1 - ((0 * winheight(0) + 26) / 53)
+let s:l = 12 - ((11 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
-tabnext 2
+12
+normal! 053|
+tabnext 1
 set stal=1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
