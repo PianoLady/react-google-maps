@@ -10,18 +10,18 @@ endif
 set shortmess=aoO
 badd +1 src/Polygon.js
 badd +1 src/creators/PolygonCreator.js
-badd +29 src/HeatmapLayer.js
+badd +12 src/HeatmapLayer.js
 badd +1 src/creators/HeatmapLayerCreator.js
 badd +1 src/eventLists/PolygonEventList.js
 badd +1 src/eventLists/HeatmapLayerEventList.js
 badd +1 src/Marker.js
-badd +0 src/creators/MarkerCreator.js
+badd +1 src/creators/MarkerCreator.js
 badd +49 lib/index.js
-badd +0 src/index.js
+badd +1 src/index.js
 argglobal
 silent! argdel *
 set stal=2
-edit src/HeatmapLayer.js
+edit src/creators/HeatmapLayerCreator.js
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -42,12 +42,12 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-let s:l = 11 - ((10 * winheight(0) + 26) / 53)
+let s:l = 1 - ((0 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-11
-normal! 020|
+1
+normal! 0
 wincmd w
 argglobal
 edit src/creators/MarkerCreator.js

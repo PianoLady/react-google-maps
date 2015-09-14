@@ -50,7 +50,7 @@ export default class HeatmapLayerCreator extends Component {
 
   static _createHeatmapLayer (mapHolderRef, heatmapLayerProps) {
     // https://developers.google.com/maps/documentation/javascript/3.exp/reference#HeatmapLayer
-    const heatmapLayer = new google.maps.HeatmapLayer(composeOptions(heatmapLayerProps, [
+    const heatmapLayer = new google.maps.visualization.HeatmapLayer(composeOptions(heatmapLayerProps, [
       // https://developers.google.com/maps/documentation/javascript/3.exp/reference#HeatmapLayerOptions
       "draggable",
       "editable",
