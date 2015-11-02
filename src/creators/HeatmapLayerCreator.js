@@ -18,9 +18,8 @@ export const heatmapLayerControlledPropTypes = {
   draggable: PropTypes.bool,
   editable: PropTypes.bool,
   options: PropTypes.object,
-  data: PropTypes.any,
-  gradient: PropTypes.any,
   visible: PropTypes.bool,
+  data: PropTypes.any.isRequired,
 };
 
 export const heatmapLayerDefaultPropTypes = defaultPropsCreator(heatmapLayerControlledPropTypes);
@@ -55,9 +54,8 @@ export default class HeatmapLayerCreator extends Component {
       // https://developers.google.com/maps/documentation/javascript/3.exp/reference#HeatmapLayerOptions
       "draggable",
       "editable",
-      "data",
-      "gradient",
       "visible",
+      "data",
     ]));
 
     heatmapLayer.setMap(mapHolderRef.getMap());

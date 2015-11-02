@@ -9,15 +9,17 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +1 src/Polygon.js
-badd +1 src/creators/PolygonCreator.js
+badd +25 src/creators/PolygonCreator.js
 badd +12 src/HeatmapLayer.js
 badd +58 src/creators/HeatmapLayerCreator.js
 badd +1 src/eventLists/PolygonEventList.js
 badd +1 src/eventLists/HeatmapLayerEventList.js
 badd +1 src/Marker.js
-badd +123 src/creators/MarkerCreator.js
+badd +25 src/creators/MarkerCreator.js
 badd +49 lib/index.js
 badd +1 src/index.js
+badd +25 src/creators/CircleCreator.js
+badd +49 src/creators/DirectionsRendererCreator.js
 argglobal
 silent! argdel *
 set stal=2
@@ -56,11 +58,11 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-let s:l = 32 - ((23 * winheight(0) + 13) / 26)
+let s:l = 24 - ((12 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-32
+24
 normal! 03|
 wincmd w
 argglobal
@@ -81,7 +83,7 @@ normal! zt
 normal! 0
 wincmd w
 argglobal
-edit src/creators/MarkerCreator.js
+edit src/creators/PolygonCreator.js
 setlocal fdm=indent
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -90,11 +92,11 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
-let s:l = 37 - ((25 * winheight(0) + 13) / 26)
+let s:l = 1 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-37
+1
 normal! 0
 wincmd w
 argglobal
