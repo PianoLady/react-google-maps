@@ -1,14 +1,17 @@
 import {
   default as React,
   Component,
-  findDOMNode
 } from "react";
+
+import {
+  default as canUseDOM,
+} from "can-use-dom";
 
 import {
   default as SearchBoxCreator,
   searchBoxDefaultPropTypes,
   searchBoxControlledPropTypes,
-  searchBoxEventPropTypes
+  searchBoxEventPropTypes,
 } from "./creators/SearchBoxCreator";
 
 /*
@@ -39,7 +42,10 @@ export default class SearchBox extends Component {
 
   state = {}
 
-  componentDidMount () {
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
     const {mapHolderRef, classes, style, ...searchBoxProps} = this.props;
 
     // Cannot create input via component - Google Maps will mess with React's internal state by detaching/attaching.

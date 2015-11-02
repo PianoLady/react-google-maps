@@ -4,10 +4,14 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as SkeletonCreator,
   skeletonDefaultPropTypes,
   skeletonControlledPropTypes,
-  skeletonEventPropTypes
+  skeletonEventPropTypes,
 } from "./creators/SkeletonCreator";
 
 export default class Skeleton extends Component {
@@ -33,9 +37,11 @@ export default class Skeleton extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, ...skeletonProps} = this.props;
-    const skeleton = SkeletonCreator._createSkeleton(mapHolderRef, skeletonProps);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const skeleton = SkeletonCreator._createSkeleton(this.props);
 
     this.setState({ skeleton });
   }

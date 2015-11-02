@@ -4,6 +4,10 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as OverlayViewCreator,
   overlayViewDefaultPropTypes,
   overlayViewControlledPropTypes,
@@ -47,9 +51,11 @@ export default class OverlayView extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, ...overlayViewProps} = this.props;
-    const overlayView = OverlayViewCreator._createOverlayView(mapHolderRef, overlayViewProps);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const overlayView = OverlayViewCreator._createOverlayView(this.props);
 
     this.setState({ overlayView });
   }

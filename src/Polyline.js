@@ -4,6 +4,10 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as PolylineCreator,
   polylineDefaultPropTypes,
   polylineControlledPropTypes,
@@ -39,9 +43,11 @@ export default class Polyline extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, ...polylineProps} = this.props;
-    const polyline = PolylineCreator._createPolyline(mapHolderRef, polylineProps);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const polyline = PolylineCreator._createPolyline(this.props);
 
     this.setState({ polyline });
   }

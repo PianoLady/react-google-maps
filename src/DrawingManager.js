@@ -4,6 +4,10 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as DrawingManagerCreator,
   drawingManagerDefaultPropTypes,
   drawingManagerControlledPropTypes,
@@ -37,9 +41,11 @@ export default class DrawingManager extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, ...drawingManagerProps} = this.props;
-    const drawingManager = DrawingManagerCreator._createDrawingManager(mapHolderRef, drawingManagerProps);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const drawingManager = DrawingManagerCreator._createDrawingManager(this.props);
 
     this.setState({ drawingManager });
   }

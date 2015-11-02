@@ -4,6 +4,10 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as DirectionsRendererCreator,
   directionsRendererDefaultPropTypes,
   directionsRendererControlledPropTypes,
@@ -41,9 +45,11 @@ export default class DirectionsRenderer extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, ...directionsRendererProps} = this.props;
-    const directionsRenderer = DirectionsRendererCreator._createDirectionsRenderer(mapHolderRef, directionsRendererProps);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const directionsRenderer = DirectionsRendererCreator._createDirectionsRenderer(this.props);
 
     this.setState({ directionsRenderer });
   }

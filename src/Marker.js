@@ -4,10 +4,14 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as MarkerCreator,
   markerDefaultPropTypes,
   markerControlledPropTypes,
-  markerEventPropTypes
+  markerEventPropTypes,
 } from "./creators/MarkerCreator";
 
 export default class Marker extends Component {
@@ -59,9 +63,11 @@ export default class Marker extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, ...markerProps} = this.props;
-    const marker = MarkerCreator._createMarker(mapHolderRef, markerProps);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const marker = MarkerCreator._createMarker(this.props);
 
     this.setState({ marker });
   }

@@ -4,10 +4,14 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as CircleCreator,
   circleDefaultPropTypes,
   circleControlledPropTypes,
-  circleEventPropTypes
+  circleEventPropTypes,
 } from "./creators/CircleCreator";
 
 export default class Circle extends Component {
@@ -45,9 +49,11 @@ export default class Circle extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, ...circleProps} = this.props;
-    const circle = CircleCreator._createCircle(mapHolderRef, circleProps);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const circle = CircleCreator._createCircle(this.props);
 
     this.setState({ circle });
   }
