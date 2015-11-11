@@ -63,7 +63,7 @@ export default class GroundOverlayCreator extends Component {
         new google.maps.LatLng(maxLat, maxLng));
 
     const groundOverlay = new google.maps.GroundOverlay(imgSrc, latLngBounds);
-
+    groundOverlay.setOpacity(0.5);
     groundOverlay.setMap(mapHolderRef.getMap());
 
     return groundOverlay;
