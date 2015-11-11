@@ -3,6 +3,7 @@ export {default as GoogleMap} from "./GoogleMap";
 export {default as Circle} from "./Circle";
 export {default as DirectionsRenderer} from "./DirectionsRenderer";
 export {default as DrawingManager} from "./DrawingManager";
+export {default as GroundOverlay} from "./GroundOverlay";
 export {default as InfoWindow} from "./InfoWindow";
 export {default as Marker} from "./Marker";
 export {default as OverlayView} from "./OverlayView";
