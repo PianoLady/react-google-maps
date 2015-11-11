@@ -53,7 +53,16 @@ export default class GroundOverlayCreator extends Component {
     // https://developers.google.com/maps/documentation/javascript/3.exp/reference#GroundOverlay
     //const groundOverlay = new google.maps.GroundOverlay(composeOptions(groundOverlayProps, groundOverlayControlledPropTypes));
 
-    const groundOverlay = new google.maps.GroundOverlay(imgSrc, bounds);
+    let minLat = grid[0];
+    let maxLat = grid[1];
+    let minLng = grid[2];
+    let maxLng = grid[3];
+
+    var latLngBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(minLat, minLng),
+        new google.maps.LatLng(maxLat, maxLng));
+
+    const groundOverlay = new google.maps.GroundOverlay(imgSrc, latLngBounds);
 
     groundOverlay.setMap(mapHolderRef.getMap());
 
