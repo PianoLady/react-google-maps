@@ -4,10 +4,14 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as InfoWindowCreator,
   infoWindowDefaultPropTypes,
   infoWindowControlledPropTypes,
-  infoWindowEventPropTypes
+  infoWindowEventPropTypes,
 } from "./creators/InfoWindowCreator";
 
 export default class InfoWindow extends Component {
@@ -37,9 +41,11 @@ export default class InfoWindow extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, anchorHolderRef, ...infoWindowProps} = this.props;
-    const infoWindow = InfoWindowCreator._createInfoWindow(mapHolderRef, infoWindowProps, anchorHolderRef);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const infoWindow = InfoWindowCreator._createInfoWindow(this.props);
 
     this.setState({ infoWindow });
   }

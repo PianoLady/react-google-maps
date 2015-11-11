@@ -4,6 +4,10 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as PolygonCreator,
   polygonDefaultPropTypes,
   polygonControlledPropTypes,
@@ -41,9 +45,11 @@ export default class Polygon extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, ...polygonProps} = this.props;
-    const polygon = PolygonCreator._createPolygon(mapHolderRef, polygonProps);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const polygon = PolygonCreator._createPolygon(this.props);
 
     this.setState({ polygon });
   }

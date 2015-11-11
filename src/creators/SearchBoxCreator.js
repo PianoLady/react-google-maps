@@ -1,7 +1,7 @@
 import {
   default as React,
   PropTypes,
-  Component
+  Component,
 } from "react";
 
 import {default as SearchBoxEventList} from "../eventLists/SearchBoxEventList";
@@ -13,6 +13,10 @@ import {default as componentLifecycleDecorator} from "../utils/componentLifecycl
 import {default as GoogleMapHolder} from "./GoogleMapHolder";
 
 export const searchBoxControlledPropTypes = {
+// NOTICE!!!!!!
+//
+// Only expose those with getters & setters in the table as controlled props.
+//
   bounds: PropTypes.any,
 };
 
@@ -39,9 +43,7 @@ export default class SearchBoxCreator extends Component {
   }
 
   static _createSearchBox (inputElement, searchBoxProps) {
-    const searchBox = new google.maps.places.SearchBox(inputElement, composeOptions(searchBoxProps, [
-      "bounds",
-    ]));
+    const searchBox = new google.maps.places.SearchBox(inputElement, composeOptions(searchBoxProps, searchBoxControlledPropTypes));
 
     return searchBox;
   }

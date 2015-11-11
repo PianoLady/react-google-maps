@@ -4,21 +4,110 @@
 [![Version][npm-image]][npm-url]
 
 
-## Installation
+## Quick start: SimpleMap
 
-```sh
-npm i --save react-google-maps
+Declare your Google Maps components using React components.
+
+```js
+import {GoogleMap, Marker} from "react-google-maps";
+
+export default function SimpleMap (props) {
+  return (
+    <section style={{height: "100%"}}>
+      <GoogleMap containerProps={{
+          style: {
+            height: "100%",
+          },
+        }}
+        defaultZoom={3}
+        defaultCenter={{lat: -25.363882, lng: 131.044922}}
+        onClick={props.onMapClick}
+      >
+        {props.markers.map((marker, index) => {
+          return (
+            <Marker
+              {...marker}
+              onRightclick={() => props.onMarkerRightclick(index)} />
+          );
+        })}
+      </GoogleMap>
+    </section>
+  );
+}
 ```
 
 
-## Demo/Examples
+## Documentation
+
+### Rule 1
+
+Define `<GoogleMap>` component in the top level. Use `containerProps`, `containerTagName` to customized the wrapper DOM for the component.
+
+Other components like `<Marker>` belongs to the children of `<GoogleMap>`. You already know this from the example code above.
+
+### Rule 2
+
+Everything in the `Methods` table in the [official documentation](https://developers.google.com/maps/documentation/javascript/3.exp/reference#Marker) of the component could be set via component's *props* directly. For example, a `<Marker>` component has the following *props*:
+
+```
+animation, attribution, clickable, cursor, draggable, icon, label, opacity, options, place, position, shape, title, visible, zIndex
+```
+
+### Rule 3
+
+Every props mentioned in __Rule 2__ could be either [controlled](https://facebook.github.io/react/docs/forms.html#controlled-components) or [uncontrolled](https://facebook.github.io/react/docs/forms.html#uncontrolled-components) property. Free to use either one depends on your use case.
+
+### Rule 4
+
+Anything that are inside components' `options` property could __ONLY__ be accessible via `props.options`. It's your responsibility to manage `props.options` object during the React lifetime for your component. My suggestion is, always use __Rule 3__ if possible. Only use `options` when it's necessary.
+
+### Map Event Triggers
+
+One common event trigger is to resize map after the size of the container div changes:
+
+```js
+componentDidUpdate() {
+    var map = ReactDOM.findDOMNode(this.refs.map);
+    window.google.maps.event.trigger(map, 'resize');
+}
+
+<GoogleMap {...props} ref="map" > ... </GoogleMap>
+```
+
+### Check the examples
 
 Static hosted [demo site][demo] on GitHub. The code is located under [examples/gh-pages][examples_gh_pages] folder.
 
 
 ## Usage
 
-This module requires to be bundled with [webpack][webpack]/browserify and loads `react/addons` internally.  
+`react-google-maps` requires __React 0.14__
+
+```sh
+npm install --save react-google-maps
+```
+
+All components are available on the top-level export.
+
+```js
+import { GoogleMap, Marker, SearchBox } from "react-google-maps";
+```
+
+### Optimize bundle size
+
+You could of course import from individual modules to save your [webpack][webpack]'s bundle size.
+
+```js
+import GoogleMap from "react-google-maps/lib/GoogleMap"; // Or import {default as GoogleMap} ...
+```
+
+### Additional Addons
+
+Some addons component could __ONLY__ be accessible via direct import:
+
+```js
+import InfoBox from "react-google-maps/lib/addons/InfoBox";
+```
 
 
 ## Development
@@ -31,7 +120,7 @@ git clone ...
 
 ### With Docker
 
-Install `docker@^1.6.2`, `docker-compose@^1.3.0` and optionally `boot2docker@^1.6.2`. Then,
+Install `docker@^1.8.2`, `docker-compose@^1.4.0` and optionally `docker-machine@^0.4.1`. Then,
 
 ```shell
 docker-compose run --service-ports web
@@ -39,17 +128,19 @@ docker-compose run --service-ports web
 
 Then open [http://192.168.59.103:8080](http://192.168.59.103:8080).
 
-**192.168.59.103** is actually your ip from `boot2docker ip`.
+**192.168.59.103** is actually your ip from `docker-machine ip`.
 
 If you change code in your local, you'll need to rebuild the image to make changes happen.
 
+If you're previously using `boot2docker`, you may want to migrate to [docker-machine](https://docs.docker.com/machine/migrate-to-machine/) instead.
+
 ```shell
-docker-compose rebuild
+docker-compose build
 ```
 
 ### With Mac
 
-Install `node@^0.12.4`. Then,
+Install `node`. Then,
 
 ```shell
 npm install
@@ -62,7 +153,7 @@ Then open [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webp
 
 ### With Windows
 
-Install `node@^0.12.4`. Then,
+Install `node`. Then,
 
 ```shell
 npm install

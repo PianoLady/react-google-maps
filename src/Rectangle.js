@@ -4,10 +4,14 @@ import {
 } from "react";
 
 import {
+  default as canUseDOM,
+} from "can-use-dom";
+
+import {
   default as RectangleCreator,
   rectangleDefaultPropTypes,
   rectangleControlledPropTypes,
-  rectangleEventPropTypes
+  rectangleEventPropTypes,
 } from "./creators/RectangleCreator";
 
 /*
@@ -43,9 +47,11 @@ export default class Rectangle extends Component {
   state = {
   }
 
-  componentDidMount () {
-    const {mapHolderRef, ...rectangleProps} = this.props;
-    const rectangle = RectangleCreator._createRectangle(mapHolderRef, rectangleProps);
+  componentWillMount () {
+    if (!canUseDOM) {
+      return;
+    }
+    const rectangle = RectangleCreator._createRectangle(this.props);
 
     this.setState({ rectangle });
   }

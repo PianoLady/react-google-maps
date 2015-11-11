@@ -1,12 +1,11 @@
-import {default as React, Component, addons} from "react/addons";
+import {default as React, Component} from "react";
+import {default as update} from "react-addons-update";
 
 import {default as GoogleMap} from "../../../../src/GoogleMap";
 import {default as Marker} from "../../../../src/Marker";
 import {default as Polyline} from "../../../../src/Polyline";
 import {default as Polygon} from "../../../../src/Polygon";
 import {default as InfoWindow} from "../../../../src/InfoWindow";
-
-const {update} = addons;
 
 function geometryToComponentWithLatLng (geometry) {
   var typeFromThis = Array.isArray(geometry),
@@ -49,30 +48,30 @@ export default class GeojsonToComponents extends Component {
       0: {
         ref: "map",
         style: {height: "100%"},
-        onClick: this._handle_map_click,
-        onZoomChanged: this._handle_map_zoom_changed,
+        onClick: ::this._handle_map_click,
+        onZoomChanged: ::this._handle_map_zoom_changed,
       },
       1: {
         ref: "centerMarker",
         visible: true,
         draggable: true,
-        onDragend: this._handle_marker_dragend,
-        onClick: this._handle_marker_click,
+        onDragend: ::this._handle_marker_dragend,
+        onClick: ::this._handle_marker_click,
         child: {
           content: "Bermuda Triangle",
           owner: "centerMarker",
         },
       },
       3: {
-        onRightclick: this._handle_polygon_rightclick,
+        onRightclick: ::this._handle_polygon_rightclick,
       },
     },
   }
 
-  _handle_map_click = () => {
+  _handle_map_click () {
   }
 
-  _handle_map_zoom_changed = () => {
+  _handle_map_zoom_changed () {
     this.setState(update(this.state, {
       geoStateBy: {
         0: {
@@ -89,7 +88,7 @@ export default class GeojsonToComponents extends Component {
     }));
   }
 
-  _handle_marker_click = () => {
+  _handle_marker_click () {
     this.setState(update(this.state, {
       geoStateBy: {
         0: {
@@ -101,7 +100,7 @@ export default class GeojsonToComponents extends Component {
     }));
   }
 
-  _handle_polygon_rightclick = () => {
+  _handle_polygon_rightclick () {
     this.setState(update(this.state, {
       geoStateBy: {
         1: {
@@ -113,7 +112,7 @@ export default class GeojsonToComponents extends Component {
     }));
   }
 
-  _handle_marker_dragend = ({latLng}) => {
+  _handle_marker_dragend ({latLng}) {
     const marker = this.state.geoJson.features[1],
           originalCoordinates = marker.properties.originalCoordinates || marker.geometry.coordinates,
           newCoordinates = [latLng.lng(), latLng.lat()];
